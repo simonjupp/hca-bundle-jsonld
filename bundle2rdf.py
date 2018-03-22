@@ -25,7 +25,9 @@ context = {
       "@type": "@id",
       "@id": "rdf:type"
     },
-    "document_id" :  "@id",
+    "document_id" :  {
+      "@type": "@id"
+    },
     "source_id" : "@id",
     "destination_id" : {
       "@type" : "@id",
