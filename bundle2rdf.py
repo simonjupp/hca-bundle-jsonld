@@ -6,99 +6,91 @@ __author__ = "jupp"
 __license__ = "Apache 2.0"
 __date__ = "21/03/2018"
 
-from rdflib import Graph, plugin
-from rdflib.serializer import Serializer
-import json, urllib, requests
+import json
+import requests
+import sys
+
+from pmap import pmap
 from rdflib.plugin import register, Parser
+from rdflib import Graph
+
+# Initialize JSONLDParser
 register('application/ld+json', Parser, 'rdflib_jsonld.parser', 'JsonLDParser')
 
+# The context to inject into each bundle
 context = {
-    "@vocab" : "http://rdf.data.humancellatlas.org/",
-    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "NCBITaxon" : "http://purl.obolibrary.org/obo/NCBITaxon_",
-    "UBERON" : "http://purl.obolibrary.org/obo/UBERON_",
-    "ontology" : {
+    "@vocab": "http://rdf.data.humancellatlas.org/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "NCBITaxon": "http://purl.obolibrary.org/obo/NCBITaxon_",
+    "UBERON": "http://purl.obolibrary.org/obo/UBERON_",
+    "ontology": {
       "@type": "@vocab"
-  	},
-    "describedBy" : {
+    },
+    "describedBy": {
       "@type": "@id",
       "@id": "rdf:type"
     },
-    "document_id" : {
-      "@type" : "@vocab"
+    "document_id": {
+      "@type": "@vocab"
      },
-    "source_id" : {
-      "@type" : "@vocab"
+    "source_id": {
+      "@type": "@vocab"
      },
-    "destination_id" : {
-      "@type" : "@vocab"
+    "destination_id": {
+      "@type": "@vocab"
      }
   }
 
-def getBundleManifest(submissionEnvelope):
+INGEST_DOMAIN = "api.ingest"
+DSS_DOMAIN = "dss"
+HCA_DOMAIN = "dev.data.humancellatlas.org"
 
-    url = "http://api.ingest.dev.data.humancellatlas.org/submissionEnvelopes/"+submissionEnvelope+"/bundleManifests"
+
+def get_bundle_manifest(submission_envelope):
+    url_template = "http://{}.{}/submissionEnvelopes/{}/bundleManifests"
+    url = url_template.format(
+        INGEST_DOMAIN, HCA_DOMAIN, submission_envelope)
     r = requests.get(url)
-    return json.loads(r.text)
+    return r.json()
 
-def addToGraph (graph, fileUuid):
 
-    file = "https://dss.dev.data.humancellatlas.org/v1/files/" + fileUuid
-    url = file + "?replica=aws"
+def get_bundle(bundle_uuid):
+    bundle_url = "https://{}.{}/v1/bundles/{}?replica=aws".format(
+        DSS_DOMAIN, HCA_DOMAIN, bundle_uuid)
+    r = requests.get(bundle_url)
+    return r.json()
 
-    r = requests.get(url)
-    bundle = json.loads(r.text)
+
+def add_to_graph(graph, file_uuid):
+    file_url = "https://{}.{}/v1/files/{}".format(
+        DSS_DOMAIN, HCA_DOMAIN, file_uuid)
+
+    r = requests.get("{}{}".format(file_url, '?replica=aws'))
+    bundle = r.json()
     bundle["@context"] = context
-    bundle["@id"] = url
+    bundle["@id"] = file_url
     graph.parse(data=json.dumps(bundle), format='json-ld')
 
     return graph
 
-def addLinksToGraph(graph, bundleUuid):
 
-    file = "https://dss.dev.data.humancellatlas.org/v1/bundles/" + bundleUuid
-    url = file + "?replica=aws"
-
-    r = requests.get(url)
-    bundle = json.loads(r.text)
-
-    for file in bundle["bundle"]["files"]:
-        if file["name"] == "links.json":
-            print ("dumping links...")
-            linksUuid = file["uuid"]
-            addToGraph(graph, linksUuid)
-
-    return graph
-
-bundleManifest = getBundleManifest("5ab000205e93540007b86e04")
-
-g = Graph()
-for bundle in bundleManifest["_embedded"]["bundleManifests"]:
-    for bioMaterialUuid in bundle["fileBiomaterialMap"].keys():
-        print ("dumping biomaterials...")
-        g = addToGraph(g, bioMaterialUuid)
-
-    for fileProcessUuid in bundle["fileProcessMap"].keys():
-        print ("dumping processes...")
-        g = addToGraph(g, fileProcessUuid)
-
-    for fileProtolocolUuid in bundle["fileProtocolMap"].keys():
-        print ("dumping protocols...")
-        g = addToGraph(g, fileProtolocolUuid)
-
-    for fileUuids in bundle["fileFilesMap"].keys():
-        print ("dumping files...")
-        g = addToGraph(g, fileUuids)
-
-    for projectUuid in bundle["fileProjectMap"].keys():
-        print ("dumping project...")
-        g = addToGraph(g, projectUuid)
-
+def bundle_to_graph(bundle):
+    g = Graph()
+    for file in bundle['bundle']['files']:
+        if "dcp-type=\"metadata/" in file['content-type']:
+            print(file['content-type'])
+            g = add_to_graph(g, file['uuid'])
     # then get the links.json from the bundle
-
-    bundleUuid =bundle["bundleUuid"]
-    g = addLinksToGraph(g, bundleUuid)
+    return g
 
 
-g.serialize(destination='output.ttl', format='ttl')
-print("Done!")
+def main(argv=None):
+    bundle_uuid = argv[0]
+    bundle = get_bundle(bundle_uuid)
+    g = bundle_to_graph(bundle)
+    g.serialize(destination="{}.ttl".format(bundle_uuid), format='ttl')
+    print("Done!")
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
