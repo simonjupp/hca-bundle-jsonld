@@ -84,12 +84,18 @@ def bundle_to_graph(bundle):
     return g
 
 
+def bundle_to_rdf(bundle):
+    bundle_uuid = bundle['bundle']['uuid']
+    g = bundle_to_graph(bundle)
+    g.serialize(destination="{}.ttl".format(bundle_uuid), format='ttl')
+    print("Wrote file: {}.ttl".format(bundle_uuid))
+    return "{}.ttl".format(bundle_uuid)
+
+
 def main(argv=None):
     bundle_uuid = argv[0]
     bundle = get_bundle(bundle_uuid)
-    g = bundle_to_graph(bundle)
-    g.serialize(destination="{}.ttl".format(bundle_uuid), format='ttl')
-    print("Done!")
+    bundle_to_rdf(bundle)
 
 
 if __name__ == "__main__":
