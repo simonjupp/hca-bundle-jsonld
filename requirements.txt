@@ -3,3 +3,4 @@ pyparsing==2.2.0
 rdflib==4.2.2
 rdflib-jsonld==0.4.0
 six==1.11.0
+requests

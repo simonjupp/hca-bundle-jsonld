@@ -1,0 +1,16 @@
+language: python
+python:
+- '2.7'
+before_install:
+- sudo apt-get update -qq
+- pip install -r dev-requirements.txt
+- pip install . --process-dependency-links
+script:
+- flake8 python
+deploy:
+  provider: pypi
+  on:
+    tags: true
+  user: david4096
+  password:
+    secure: impttv8BlOGNHYh9jrc87j0XbZ3a0X5jnOI6m66cZZ2n6Vo88QxNHaJRiUn7aNynRCivqGCMxztV6s/tc7I+esd/y0+MAfEAY/YjUVo+4PKjGQJsNvRnlyH5c6LFZLvWP93A32lCN/vC42uO9WTMRV9lBjYwT368donkka2c/77gOHRkPIs6EJaeccJYbS7JqQu073OCHifoc2KA1rdzMgzx0edJfEDXeO0hqkdLyCHbrNO/rMMKI48gxzl+bR+7dVm818eI1nVXOWhIWbgrtGNFQlsNEUlBeMn/Y6Sajog+3Nqf1wAiomjkjYxcwM8n7QV0591IIcQBRBy95J1W780bXPGtrQfXWJWfXCTUTyt+ToHD31gbQ8LlIQGOLXTTuLjqr9RorEQeOd4gWU+O1PXmhuZ/hcZL/WZgsZN0dnDGMY0ojIeIplkK2WqsrHTLCMhbc14Vxz9+gOHIkk7Ww+iv8Mao9eciYGaK+ddafBivgdkJFQUWLxfheq1lpUoSRtbZeDLiqt5w8N0d/1H2MFh4U5TZslwXnm48QwcPXpeThZpxtTIf9h113Yws6YGGRGjII/5C8UqsfC3AoVHHw69SgeKijbUGANg25Ulcyl3w/tQi8j5CzyvPFefldJ4m6gN2wk3wMWl+nXKLMuLLiZwEeH1SozUR50OVOYWjmyw=

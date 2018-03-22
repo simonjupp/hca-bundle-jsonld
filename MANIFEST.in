@@ -1,0 +1,3 @@
+include README.pypi.rst
+include requirements.txt
+
