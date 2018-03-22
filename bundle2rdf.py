@@ -19,26 +19,26 @@ register('application/ld+json', Parser, 'rdflib_jsonld.parser', 'JsonLDParser')
 
 # The context to inject into each bundle
 context = {
-    "@vocab": "http://rdf.data.humancellatlas.org/",
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "NCBITaxon": "http://purl.obolibrary.org/obo/NCBITaxon_",
-    "UBERON": "http://purl.obolibrary.org/obo/UBERON_",
-    "ontology": {
+    "@base": "http://rdf.data.humancellatlas.org/",
+    "@vocab" : "http://rdf.data.humancellatlas.org/",
+    "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "NCBITaxon" : "http://purl.obolibrary.org/obo/NCBITaxon_",
+    "UBERON" : "http://purl.obolibrary.org/obo/UBERON_",
+    "ontology" : {
       "@type": "@vocab"
     },
     "describedBy": {
       "@type": "@id",
       "@id": "rdf:type"
     },
-    "document_id": {
-      "@type": "@vocab"
-     },
-    "source_id": {
-      "@type": "@vocab"
-     },
-    "destination_id": {
-      "@type": "@vocab"
-     }
+    "document_id" :  {
+      "@type": "@id"
+    },
+    "source_id" : "@id",
+    "destination_id" : {
+      "@type" : "@id",
+      "@id" : "links"
+    }
   }
 
 INGEST_DOMAIN = "api.ingest"
