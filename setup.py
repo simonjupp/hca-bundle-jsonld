@@ -45,7 +45,7 @@ setup(
     namespace_packages=[],
     zip_safe=False,
     url="https://github.com/simonjupp/hca-bundle-jsonld",
-    version=0.1.1,
+    version="0.1.1",
     entry_points={
         'console_scripts': ['hca-bundle-jsonld=hca_bundle_jsonld.bundle_to_rdf:main']
     },
