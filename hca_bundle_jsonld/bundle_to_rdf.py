@@ -10,7 +10,6 @@ import json
 import requests
 import sys
 
-from pmap import pmap
 from rdflib.plugin import register, Parser
 from rdflib import Graph
 
@@ -92,11 +91,12 @@ def bundle_to_rdf(bundle):
     return "{}.ttl".format(bundle_uuid)
 
 
-def main(argv=None):
+def main(argv=sys.argv[1:]):
     bundle_uuid = argv[0]
     bundle = get_bundle(bundle_uuid)
     bundle_to_rdf(bundle)
 
 
 if __name__ == "__main__":
+    print(sys.argv)
     main(sys.argv[1:])
