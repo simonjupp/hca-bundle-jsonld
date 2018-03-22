@@ -49,7 +49,7 @@ def addToGraph (graph, fileUuid):
     r = requests.get(url)
     bundle = json.loads(r.text)
     bundle["@context"] = context
-    bundle["@id"] = url
+    bundle["@id"] = file
     graph.parse(data=json.dumps(bundle), format='json-ld')
 
     return graph
