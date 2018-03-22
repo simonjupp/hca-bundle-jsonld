@@ -1,4 +1,28 @@
-# Get organ type for bundles
+#1 Get sample bundles where the organ is part of the cardiovascular system
+
+PREFIX :<http://rdf.data.humancellatlas.org/>
+PREFIX bundle:<https://schema.humancellatlas.org/bundle/5.1.0/>
+PREFIX biomaterials:<https://schema.humancellatlas.org/type/biomaterial/5.1.0/>
+PREFIX obo: <http://purl.obolibrary.org/obo/>
+
+SELECT DISTINCT ?bundle WHERE {
+
+    ?bundle a bundle:biomaterial ;
+          :biomaterials
+            [:hca_ingest [:document_id ?speciemen_id] ;
+             :content [a biomaterials:specimen_from_organism ;
+                        :organ
+           		 			[:text ?tissue ;
+                  			 :ontology ?uberon]]] .
+
+  	 ?uberon rdfs:subClassOf [a owl:Restriction ;
+      		   		 					  owl:onProperty obo:BFO_0000050 ;
+      		   		 					  owl:someValuesFrom obo:UBERON_0001017 ] .
+
+}
+
+
+#2 Get organ information for all bundles
 
 PREFIX hca:<http://rdf.data.humancellatlas.org/>
 PREFIX bundle:<https://schema.humancellatlas.org/bundle/5.1.0/>
