@@ -1,0 +1,19 @@
+# Get organ type for bundles
+
+PREFIX hca:<http://rdf.data.humancellatlas.org/>
+PREFIX bundle:<https://schema.humancellatlas.org/bundle/5.1.0/>
+
+SELECT distinct ?bioid ?name ?tissue ?uberon WHERE {
+  ?bundle a bundle:biomaterial ;
+          hca:biomaterials
+            [hca:content
+             [hca:organ
+           		[hca:text ?tissue ;
+                 hca:ontology ?uberon]]] .
+  ?bundle a bundle:biomaterial ;
+          hca:biomaterials
+            [hca:content
+              [hca:biomaterial_core
+           		[hca:biomaterial_id ?bioid ; hca:biomaterial_name ?name]]]
+
+}

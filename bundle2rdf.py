@@ -97,7 +97,7 @@ for bundle in bundleManifest["_embedded"]["bundleManifests"]:
     # then get the links.json from the bundle
 
     bundleUuid =bundle["bundleUuid"]
-    addLinksToGraph(g, bundleUuid)
+    g = addLinksToGraph(g, bundleUuid)
 
 
 g.serialize(destination='output.ttl', format='ttl')
