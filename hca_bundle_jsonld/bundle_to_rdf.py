@@ -44,7 +44,7 @@ context = {
 
 INGEST_DOMAIN = "api.ingest"
 DSS_DOMAIN = "dss"
-HCA_DOMAIN = "dev.data.humancellatlas.org"
+HCA_DOMAIN = "data.humancellatlas.org"
 
 
 def get_bundle_manifest(submission_envelope):
