@@ -11,39 +11,32 @@ import requests
 import sys
 
 from rdflib.plugin import register, Parser
-from rdflib import Graph
+from rdflib import Graph, ConjunctiveGraph
 
 # Initialize JSONLDParser
 register('application/ld+json', Parser, 'rdflib_jsonld.parser', 'JsonLDParser')
 
 # The context to inject into each bundle
 context = {
-    "@base": "http://rdf.data.humancellatlas.org/",
-    "@vocab" : "http://rdf.data.humancellatlas.org/",
+    "@base": "http://schema.humancellatlas.org/",
+    "@vocab" : "http://schema.humancellatlas.org/",
+    "bundle_file" : "https://dss.dev.data.humancellatlas.org/v1/files/",
     "rdf" : "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "NCBITaxon" : "http://purl.obolibrary.org/obo/NCBITaxon_",
-    "UBERON" : "http://purl.obolibrary.org/obo/UBERON_",
     "ontology" : {
       "@type": "@vocab"
     },
-    "describedBy": {
+    "schema_type": {
       "@type": "@id",
       "@id": "rdf:type"
     },
-    "document_id" :  {
+    "uuid" :  {
       "@type": "@id"
-    },
-    "source_id" : "@id",
-    "destination_id" : {
-      "@type" : "@id",
-      "@id" : "links"
     }
   }
 
 INGEST_DOMAIN = "api.ingest"
 DSS_DOMAIN = "dss"
 HCA_DOMAIN = "dev.data.humancellatlas.org"
-
 
 def get_bundle_manifest(submission_envelope):
     url_template = "http://{}.{}/submissionEnvelopes/{}/bundleManifests"
@@ -65,16 +58,23 @@ def add_to_graph(graph, file_uuid):
         DSS_DOMAIN, HCA_DOMAIN, file_uuid)
 
     r = requests.get("{}{}".format(file_url, '?replica=aws'))
+
     bundle = r.json()
-    bundle["@context"] = context
-    bundle["@id"] = file_url
-    graph.parse(data=json.dumps(bundle), format='json-ld')
+    content = bundle["content"]
+
+    content["@context"] = context
+    meta_file_url = "https://{}.{}/v1/files/{}".format(
+        DSS_DOMAIN, HCA_DOMAIN,  bundle["uuid"])
+    content["@id"] =meta_file_url
+    content["document_id"] =bundle["uuid"]
+    graph.parse(data=json.dumps(content), format='json-ld')
 
     return graph
 
 
 def bundle_to_graph(bundle):
-    g = Graph()
+    g = ConjunctiveGraph()
+    g.parse("links.json", format="json-ld")
     for file in bundle['bundle']['files']:
         if "dcp-type=\"metadata/" in file['content-type']:
             print(file['content-type'])
@@ -88,7 +88,7 @@ def bundle_to_rdf(bundle):
     g = bundle_to_graph(bundle)
     g.serialize(destination="{}.ttl".format(bundle_uuid), format='ttl')
     print("Wrote file: {}.ttl".format(bundle_uuid))
-    return "{}.ttl".format(bundle_uuid)
+    return g
 
 
 def main(argv=sys.argv[1:]):

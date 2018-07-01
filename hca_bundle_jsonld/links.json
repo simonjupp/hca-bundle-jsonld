@@ -1,0 +1,30 @@
+{
+  "@context" : {
+    "@base": "https://dss.dev.data.humancellatlas.org/v1/files/",
+    "@vocab" : "http://schema.humancellatlas.org/",
+    "bundle_file" : "https://dss.dev.data.humancellatlas.org/v1/files/",
+    "process_uuid" :  "@id",
+    "has_input" :{"@type" : "@id"},
+    "has_output" : {"@type" : "@id"},
+    "has_protocol" : {"@type" : "@id"}
+  },
+  "@graph" : [
+  {
+    "process_uuid" : "f2a8a800-7e15-4966-93b8-54872b7d6b7c",
+    "has_input" : ["98701d6d-e529-480f-8725-d0be44bbe1db"],
+    "has_output" : ["22464af2-263d-47bf-8d81-20e099111534"]
+  },
+  {
+    "process_uuid" : "fc17ce72-0b4f-45e7-9324-62b1b9f58000",
+    "has_input" : ["22464af2-263d-47bf-8d81-20e099111534"],
+    "has_output" : ["495a4f35-3876-46da-9195-1d164205229d"],
+    "has_protocol" : ["264d2811-1a6b-4be7-b1f5-b9f557abb684", "495a4f35-3876-46da-9195-1d164205229d"]
+  },
+  {
+    "process_uuid" : "72234087-8d07-4dbc-b767-82edd0b29d3d",
+    "has_input" : ["495a4f35-3876-46da-9195-1d164205229d"],
+    "has_output" : ["b6ce389c-0c1c-4b45-abdf-9ad16d2b5eee", "48ae8835-05cc-421f-a02b-bc6f54107adf"],
+    "has_protocol" : ["a7a4f573-db00-4d08-a213-af80d49007a9", "9f9cfd5c-990d-4dd1-be3d-7cd4d6526506"]
+  }
+ ]
+}

@@ -1,0 +1,121 @@
+@prefix : <http://schema.humancellatlas.org/> .
+@prefix bundle_file: <https://dss.dev.data.humancellatlas.org/v1/files/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/0e1bc860-56c3-4d7c-8d1c-497d8f7de21f> a :project ;
+    :contributors [ :contact_name "Q4_DEMO-MintTeam" ;
+            :email "dummy@email.com" ] ;
+    :describedBy "https://schema.humancellatlas.org/type/project/5.2.1/project" ;
+    :document_id "0e1bc860-56c3-4d7c-8d1c-497d8f7de21f" ;
+    :project_core [ :project_description "Q4_DEMO-We report transcriptomes from 430 single glioblastoma cells isolated from 5 individual tumors and 102 single cells from gliomasphere cells lines generated using SMART-seq. In addition, we report population RNA-seq from the five tumors as well as RNA-seq from cell lines derived from 3 tumors (MGH26, MGH28, MGH31) cultured under serum free (GSC) and differentiated (DGC) conditions. This dataset highlights intratumoral heterogeneity with regards to the expression of de novo derived transcriptional modules and established subtype classifiers. Overall design: Operative specimens from five glioblastoma patients (MGH26, MGH28, MGH29, MGH30, MGH31) were acutely dissociated, depleted for CD45+ inflammatory cells and then sorted as single cells (576 samples). Population controls for each tumor were isolated by sorting 2000-10000 cells and processed in parallel (5 population control samples). Single cells from two established cell lines, GBM6 and GBM8, were also sorted as single cells (192 samples). SMART-seq protocol was implemented to generate single cell full length transcriptomes (modified from Shalek, et al Nature 2013) and sequenced using 25 bp paired end reads. Single cell cDNA libraries for MGH30 were resequenced using 100 bp paired end reads to allow for isoform and splice junction reconstruction (96 samples, annotated MGH30L). Cells were also cultured in serum free conditions to generate gliomasphere cell lines for MGH26, MGH28, and MGH31 (GSC) which were then differentiated using 10% serum (DGC). Population RNA-seq was performed on these samples (3 GSC, 3 DGC, 6 total). The initial dataset included 875 RNA-seq libraries (576 single glioblastoma cells, 96 resequenced MGH30L, 192 single gliomasphere cells, 5 tumor population controls, 6 population libraries from GSC and DGC samples). Data was processed as described below using RSEM for quantification of gene expression. 5,948 genes with the highest composite expression either across all single cells combined (average log2(TPM)>4.5) or within a single tumor (average log2(TPM)>6 in at least one tumor) were included. Cells expressing less than 2,000 of these 5,948 genes were excluded. The final processed dataset then included 430 primary single cell glioblastoma transcriptomes, 102 single cell transcriptomes from cell lines(GBM6,GBM8), 5 population controls (1 for each tumor), and 6 population libraries from cell lines derived from the tumors (GSC and DGC for MGH26, MGH28 and MGH31). The final matrix (GBM_data_matrix.txt) therefore contains 5948 rows (genes) quantified in 543 samples (columns). Please note that the samples which are not included in the data processing are indicated in the sample description field." ;
+            :project_shortname "Q4_DEMO-project_PRJNA248302" ;
+            :project_title "Q4_DEMO-Single cell RNA-seq of primary human glioblastomas" ] .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/6a38300d-8ebe-448f-a323-839a84571b9c> a :protocol ;
+    :describedBy "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/2.0.0/dissociation_protocol" ;
+    :dissociation_method [ :ontology <http://schema.humancellatlas.org/EFO:0009108> ;
+            :text "fluorescence-activated cell sorting" ] ;
+    :document_id "6a38300d-8ebe-448f-a323-839a84571b9c" ;
+    :protocol_core [ :protocol_id "dissociation_1" ;
+            :protocol_name "a FACS method to separate cells" ] .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/72234087-8d07-4dbc-b767-82edd0b29d3d> a :process ;
+    :describedBy "https://schema.humancellatlas.org/type/process/2.1.1/process" ;
+    :document_id "72234087-8d07-4dbc-b767-82edd0b29d3d" ;
+    :has_input <https://dss.dev.data.humancellatlas.org/v1/files/495a4f35-3876-46da-9195-1d164205229d> ;
+    :has_output <https://dss.dev.data.humancellatlas.org/v1/files/48ae8835-05cc-421f-a02b-bc6f54107adf>,
+        bundle_file:b6ce389c-0c1c-4b45-abdf-9ad16d2b5eee ;
+    :has_protocol <https://dss.dev.data.humancellatlas.org/v1/files/9f9cfd5c-990d-4dd1-be3d-7cd4d6526506>,
+        bundle_file:a7a4f573-db00-4d08-a213-af80d49007a9 ;
+    :process_core [ :process_id "sequence_process_file_1" ] .
+
+bundle_file:f2a8a800-7e15-4966-93b8-54872b7d6b7c a :process ;
+    :describedBy "https://schema.humancellatlas.org/type/process/2.1.1/process" ;
+    :document_id "f2a8a800-7e15-4966-93b8-54872b7d6b7c" ;
+    :has_input <https://dss.dev.data.humancellatlas.org/v1/files/98701d6d-e529-480f-8725-d0be44bbe1db> ;
+    :has_output <https://dss.dev.data.humancellatlas.org/v1/files/22464af2-263d-47bf-8d81-20e099111534> ;
+    :process_core [ :process_id "process_id_1" ] .
+
+bundle_file:fc17ce72-0b4f-45e7-9324-62b1b9f58000 a :process ;
+    :describedBy "https://schema.humancellatlas.org/type/process/2.1.1/process" ;
+    :document_id "fc17ce72-0b4f-45e7-9324-62b1b9f58000" ;
+    :has_input <https://dss.dev.data.humancellatlas.org/v1/files/22464af2-263d-47bf-8d81-20e099111534> ;
+    :has_output <https://dss.dev.data.humancellatlas.org/v1/files/495a4f35-3876-46da-9195-1d164205229d> ;
+    :has_protocol <https://dss.dev.data.humancellatlas.org/v1/files/264d2811-1a6b-4be7-b1f5-b9f557abb684>,
+        <https://dss.dev.data.humancellatlas.org/v1/files/495a4f35-3876-46da-9195-1d164205229d> ;
+    :process_core [ :process_id "process_id_2" ] .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/264d2811-1a6b-4be7-b1f5-b9f557abb684> a :protocol ;
+    :describedBy "https://schema.humancellatlas.org/type/protocol/biomaterial_collection/2.0.0/enrichment_protocol" ;
+    :document_id "264d2811-1a6b-4be7-b1f5-b9f557abb684" ;
+    :enrichment_method [ :ontology <http://schema.humancellatlas.org/EFO:0009108> ;
+            :text "fluorescence-activated cell sorting" ] ;
+    :protocol_core [ :protocol_id "enrichment1" ] .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/48ae8835-05cc-421f-a02b-bc6f54107adf> a :file ;
+    :describedBy "https://schema.humancellatlas.org/type/file/6.1.1/sequence_file" ;
+    :document_id "48ae8835-05cc-421f-a02b-bc6f54107adf" ;
+    :file_core [ :file_format "fastq.gz" ;
+            :file_name "R2.fastq.gz" ] ;
+    :lane_index 1 ;
+    :read_index "read2" .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/98701d6d-e529-480f-8725-d0be44bbe1db> a :biomaterial ;
+    :biological_sex "unknown" ;
+    :biomaterial_core [ :biomaterial_id "Q4_DEMO-donor_MGH30" ;
+            :biomaterial_name "Q4 DEMO donor MGH30" ;
+            :ncbi_taxon_id 9606 ] ;
+    :describedBy "https://schema.humancellatlas.org/type/biomaterial/5.2.1/donor_organism" ;
+    :document_id "98701d6d-e529-480f-8725-d0be44bbe1db" ;
+    :genus_species [ :text "Homo sapiens" ] ;
+    :is_living false ;
+    :medical_history [ :smoking_history "yes" ] .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/9f9cfd5c-990d-4dd1-be3d-7cd4d6526506> a :protocol ;
+    :describedBy "https://schema.humancellatlas.org/type/protocol/sequencing/7.0.0/sequencing_protocol" ;
+    :document_id "9f9cfd5c-990d-4dd1-be3d-7cd4d6526506" ;
+    :instrument_manufacturer_model [ :text "Illumina HiSeq 2500" ] ;
+    :paired_ends true ;
+    :protocol_core [ :protocol_id "assay_1" ] ;
+    :sequencing_approach [ :ontology <http://schema.humancellatlas.org/EFO:0008441> ;
+            :text "full length single cell RNA sequencing" ] .
+
+bundle_file:a7a4f573-db00-4d08-a213-af80d49007a9 a :protocol ;
+    :describedBy "https://schema.humancellatlas.org/type/protocol/sequencing/3.0.0/library_preparation_protocol" ;
+    :document_id "a7a4f573-db00-4d08-a213-af80d49007a9" ;
+    :end_bias "5 prime end bias" ;
+    :input_nucleic_acid_molecule [ :text "polyA RNA" ] ;
+    :library_construction_approach [ :ontology <http://schema.humancellatlas.org/EFO:0008931> ;
+            :text "Smart-seq2" ] ;
+    :protocol_core [ :protocol_id "preparation1" ] ;
+    :strand "unstranded" .
+
+bundle_file:b6ce389c-0c1c-4b45-abdf-9ad16d2b5eee a :file ;
+    :describedBy "https://schema.humancellatlas.org/type/file/6.1.1/sequence_file" ;
+    :document_id "b6ce389c-0c1c-4b45-abdf-9ad16d2b5eee" ;
+    :file_core [ :file_format "fastq.gz" ;
+            :file_name "R1.fastq.gz" ] ;
+    :lane_index 1 ;
+    :read_index "read1" .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/22464af2-263d-47bf-8d81-20e099111534> a :biomaterial ;
+    :biomaterial_core [ :biomaterial_id "Q4_DEMO-sample_SAMN02797092" ;
+            :biomaterial_name "Q4_DEMO-Single cell mRNA-seq_MGH30_A01" ;
+            :ncbi_taxon_id 9606 ;
+            :supplementary_files "Q4_DEMO-protocol" ] ;
+    :describedBy "https://schema.humancellatlas.org/type/biomaterial/5.2.2/specimen_from_organism" ;
+    :disease [ :text "glioblastoma" ] ;
+    :document_id "22464af2-263d-47bf-8d81-20e099111534" ;
+    :genus_species [ :text "Homo sapiens" ] ;
+    :organ [ :text "brain" ] ;
+    :organ_part [ :text "astrocyte" ] .
+
+<https://dss.dev.data.humancellatlas.org/v1/files/495a4f35-3876-46da-9195-1d164205229d> a :biomaterial ;
+    :biomaterial_core [ :biomaterial_id "Q4_DEMO-cellsus_SAMN02797092" ;
+            :ncbi_taxon_id 9606 ] ;
+    :describedBy "https://schema.humancellatlas.org/type/biomaterial/6.1.1/cell_suspension" ;
+    :document_id "495a4f35-3876-46da-9195-1d164205229d" .
+
