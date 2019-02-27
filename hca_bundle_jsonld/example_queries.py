@@ -63,7 +63,7 @@ orange_box_query =\
 """
 PREFIX : <http://schema.humancellatlas.org/>
 
-SELECT DISTINCT ?bio_id ?filename ?processes ?organ ?organ_part ?species ?lib_construction ?age ?age_unit ?disease WHERE {
+SELECT DISTINCT ?bio_id ?filename ?organ ?organ_part ?species ?lib_construction ?age ?age_unit ?disease WHERE {
 
   # get the assay process
   ?process :has_input [ :biomaterial_core  [ :biomaterial_id ?bio_id] ].  
@@ -99,4 +99,4 @@ print ("3. Get all the fields show in the portal data browser:")
 qres = graph.query(orange_box_query)
 
 for row in qres:
-    print("%s %s %s %s %s %s %s %s %s %s" % row)
+    print("%s %s %s %s %s %s %s %s %s" % row)

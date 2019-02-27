@@ -1,0 +1,9 @@
+
+{
+ "@context" : {
+    "organ" : "http://purl.obolibrary.org/obo/UBERON_0000062"
+  },
+  "biomaterial_id": "Specimen_PBMC2",
+  "ncbi_taxon_id": 9606,
+  "organ": "blood"
+}
