@@ -13,8 +13,10 @@ import sys
 from rdflib.plugin import register, Parser
 from rdflib import Graph, ConjunctiveGraph
 
+import rdflib_jsonld
+
 # Initialize JSONLDParser
-register('application/ld+json', Parser, 'rdflib_jsonld.parser', 'JsonLDParser')
+register('json-ld', Parser, 'rdflib_jsonld.parser', 'JsonLDParser')
 
 # The context to inject into each bundle
 context = {
@@ -36,7 +38,7 @@ context = {
 
 INGEST_DOMAIN = "api.ingest"
 DSS_DOMAIN = "dss"
-HCA_DOMAIN = "dev.data.humancellatlas.org"
+HCA_DOMAIN = "data.humancellatlas.org"
 
 def get_bundle_manifest(submission_envelope):
     url_template = "http://{}.{}/submissionEnvelopes/{}/bundleManifests"
